@@ -9,6 +9,8 @@ This was made with the intention of developing an algorithm for avoiding static 
 I ended up implementing something like [this] paper which uses covariance confidence ellipses to judge the avoidance region and get
 a vector to change course. 
 
+![](https://github.com/nikhil-sethi/miscellaneous/blob/master/obstacle-avoidance/obs.gif)
+
 **2. python-netlogo**
 
 This is a very poor attempt at interfacing [Netlogo](an application for multiagent control) and python with a library called [nl4py].
