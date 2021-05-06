@@ -1,6 +1,6 @@
-from matplotlib.animation import FuncAnimation
+from matplotlib import animation
 import matplotlib.pyplot as plt
-from methods.geometry import unit_vector
+from geometry import unit_vector
 import numpy as np
 
 class Particle:
@@ -11,22 +11,31 @@ class Particle:
         self.pos = np.array(position, dtype=float)
         self.vel = np.array(velocity, dtype=float)
         self.acc = acceleration
-        self.vmax = 0.1
+        self.vmax = 0.8
         self.animated = animated
+        self.current_step =0
 
     # animation functions
-    def start(self, fig=plt.gcf(), ax=plt.gca(), interval=100):
+    def start(self, fig=plt.gcf(), ax=plt.gca(), interval=10):
         if self.animated:
             self.ln, = ax.plot([], [], 'ro')
-        self.ani = FuncAnimation(fig, self.update, interval=interval)
+        self.ani = animation.FuncAnimation(fig, self.update, interval=interval)
+        plt.show()
 
     def update(self, frame):
         self.vel += self.acc
         self.vel = self.vmax * unit_vector(self.vel)
         self.pos += self.vel
         self.acc = np.zeros(2)
+        if abs(self.pos[0])>=40:
+            self.pos[0] *= -1
+        if abs(self.pos[1])>=40:
+            self.pos[1] *= -1
+
         if self.animated:
             self.ln.set_data(self.pos[0], self.pos[1])
+
+        self.current_step +=1
 
     # control methods
     def push(self, force, maxForce: float):

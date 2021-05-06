@@ -33,3 +33,8 @@ def unit_vector(vec):
     if np.any(vec):
         return vec/np.linalg.norm(vec)
     return np.zeros(2)
+
+def tangentPointFromSlope(m, p, a, b):
+    x = a*m*(m*p[0]-p[1])/(b+a*m**2)
+    y = p[1]-m*(p[0]-x)
+    return np.array([x,y])
